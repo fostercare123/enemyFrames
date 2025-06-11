@@ -1,3 +1,9 @@
+-- Module: enemyFramesCore
+-- Tracks enemy data (health, cc, casts) and feeds it to UI.
+-- Adjust timers or battlefield logic here.
+
+local Poller = Poller
+
 local playerFaction
 local bgs = {['Warsong Gulch'] = 10, 
 			 ['Arathi Basin'] = 15, 
@@ -520,8 +526,6 @@ SlashCmdList["ENEMYFRAMECORE"] = function(msg)
 		end
 	end
 end
-
-local Poller = Poller
 
 Poller.Add(enemyFramesCoreOnUpdate)
 

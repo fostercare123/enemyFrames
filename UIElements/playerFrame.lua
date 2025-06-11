@@ -1,4 +1,7 @@
-local Utils = Utils  -- globals/utils.lua returns a table in global Utils
+-- Module: PlayerPortraitDebuff
+-- Handles showing priority debuffs on your portrait. Change refresh rate below.
+
+local Utils  = Utils
 local Poller = Poller
 
 -------------------------------------------------------------------------------

@@ -1,3 +1,7 @@
+-- Module: UIFactory
+-- Provides helper functions for creating setting‐UI controls (checkboxes, sliders).
+-- Edit here to adjust control styles or defaults.
+
 local M = {}
 
 -- checkbox factory

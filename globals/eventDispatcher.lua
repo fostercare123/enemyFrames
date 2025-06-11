@@ -1,3 +1,7 @@
+-- Module: EventDispatcher
+-- Central dispatcher for all addon events. Subscribe handlers via EventDispatcher:Subscribe().
+-- You can add or remove subscriptions below.
+
 local frame = CreateFrame('Frame')
 local subs = {}
 

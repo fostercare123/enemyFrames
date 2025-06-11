@@ -1,3 +1,10 @@
+-- Module: enemyFrames (UI)
+-- Main addon UI: spawns unit frames, handles clicks and settings.
+-- Edit spawnRTMenu or layout logic below.
+
+local Utils  = Utils
+local Poller = Poller
+
 local playerFaction
 local insideBG = false
 -- TIMERS
@@ -512,9 +519,6 @@ local function SetupFrames(maxU)
 		
 end
 
-
-local Utils  = Utils
-local Poller = Poller
 
 local function enemyFramesOnUpdate()
 	nextRefresh = nextRefresh - arg1

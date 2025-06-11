@@ -1,3 +1,8 @@
+-- Module: NameplatesHandler
+-- Manages extra elements (casts, buffs, raid icons) on enemy nameplates.
+-- Modify addCastbar or addBuffs calls to change behavior.
+
+local SmoothBar = SmoothBar
 -------------------------------------------------------------------------------
 	local refreshInterval, nextRefresh = 1/60, 0
 	-------------------------------------------------------------------------------

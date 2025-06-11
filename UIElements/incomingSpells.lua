@@ -1,4 +1,9 @@
 -------------------------------------------------------------------------------
+-- Module: IncomingSpells
+-- Shows casts targeting you in battlegrounds. Enable/disable and layout here.
+
+local Poller = Poller
+
 	local playerName = UnitName'player'
 	local enabled, refresh = false, true
 	local refreshInterval, nextRefresh = 1/60, 0

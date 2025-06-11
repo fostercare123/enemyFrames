@@ -1,3 +1,14 @@
+-- Module: TargetFrame Extension
+-- Adds movable cast bar and debuff timers to the default TargetFrame.
+-- Adjust sizes or positions below as needed.
+
+local CreateFrame      = CreateFrame
+local SPELLCOREgetCast = SPELLCASTINGCOREgetCast
+local SPELLCOREgetBuffs= SPELLCASTINGCOREgetBuffs
+local Utils            = Utils
+local Poller           = Poller
+local GetTime          = GetTime
+
 -------------------------------------------------------------------------------
 	local raidTargetFrame = CreateFrame('Frame', nil, TargetFrame)
 	raidTargetFrame:SetFrameLevel(2)
@@ -32,8 +43,8 @@
 	TargetFrame.EFcast:SetClampedToScreen(true)
 	TargetFrame.EFcast:RegisterForDrag'LeftButton' TargetFrame.EFcast:EnableMouse(true)
 	local castbarmoveable = false
-	TargetFrame.EFcast:SetScript('OnDragStart', function() if castbarmoveable then this:StartMoving() end end)
-	TargetFrame.EFcast:SetScript('OnDragStop', function() if castbarmoveable then this:StopMovingOrSizing() end end)
+	TargetFrame.EFcast:SetScript('OnDragStart', function() if castbarmoveable then self:StartMoving() end end)
+	TargetFrame.EFcast:SetScript('OnDragStop', function() if castbarmoveable then self:StopMovingOrSizing() end end)
 	
 	TargetFrame.EFcast.border = CreateBorder(nil, TargetFrame.EFcast, 6.5, 1/8.5)
 	TargetFrame.EFcast.border:SetPadding(2.5, 1.7)
@@ -339,10 +350,16 @@
 	-------------------------------------------------------------------------------	
 	Poller.Add(function(elapsed)
 		nextRefresh = nextRefresh - elapsed
-		if nextRefresh < 0 then
+		if nextRefresh <= 0 then
 			showCast()
-			if ENEMYFRAMESPLAYERDATA['targetPortraitDebuff'] then showPortraitDebuff() else portraitDebuff.cd:Hide() end
-			if UnitExists('target') then displayTimers(SPELLCASTINGCOREgetBuffs(UnitName'target')) end
+			if ENEMYFRAMESPLAYERDATA.targetPortraitDebuff then
+				showPortraitDebuff()
+			else
+				portraitDebuff.cd:Hide()
+			end
+			if UnitExists('target') then
+				displayTimers(SPELLCOREgetBuffs(UnitName'target'))
+			end
 			raidTargetOnUpdate()
 			nextRefresh = refreshInterval
 		end
