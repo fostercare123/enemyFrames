@@ -1,4 +1,4 @@
-# enemyFrames (Turtle WoW Clean by Kirsten)
+# enemyFrames (Cleaned by Kirsten from Turtle WoW server)
 
 **What is this?**  
 A modular, beginner-friendly WoW addon that displays enemy unit frames, nameplates, target castbars, BG flags, and incoming spells.
