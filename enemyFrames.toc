@@ -33,5 +33,3 @@ UIElements\wsgUI.lua
 
 enemyFrames.lua
 enemyFramesCore.lua
-
-
