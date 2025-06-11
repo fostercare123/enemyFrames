@@ -1,14 +1,8 @@
-	-------------------------------------------------------------------------------
+local Utils = Utils  -- globals/utils.lua returns a table in global Utils
+
+-------------------------------------------------------------------------------
 	local refreshInterval, nextRefresh = 1/60, 0
 	-------------------------------------------------------------------------------
-	local function round(num, idp)
-		local mult = 10^(idp or 0)
-		return math.floor(num * mult + 0.5) / mult
-	end
-	local getTimerLeft = function(tEnd)
-		local t = tEnd - GetTime()
-		if t > 3 then return round(t, 0) else return round(t, 1) end
-	end
 	-------------------------------------------------------------------------------	
 	local playerDebuffFrame = CreateFrame('Frame', 'PlayerPortraitDebuff', PlayerFrame)
 	playerDebuffFrame:SetFrameLevel(0)
@@ -75,7 +69,7 @@
 			--playerDebuffFrame.debuffText:SetTexCoord(.12+b, .88+d, .12+d, .88+b)
 		
 			playerDebuffFrame.debuffText:SetTexture(prioBuff.icon)
-			playerDebuffFrame.duration:SetText(getTimerLeft(prioBuff.timeEnd))
+			playerDebuffFrame.duration:SetText(Utils.getTimerLeft(prioBuff.timeEnd))
 			playerPortraitbgFrame.bgText:Show()
 			playerDebuffFrame.cd:SetTimers(prioBuff.timeStart, prioBuff.timeEnd)
 			playerDebuffFrame.cd:Show()
