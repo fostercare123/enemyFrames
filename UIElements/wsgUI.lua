@@ -1,4 +1,4 @@
-	-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 	local flagCarriers = {}
 	local fcHealth = {}
 	local sentAnnoucement, healthWarnings = false, {10, 20, 40}
@@ -115,12 +115,8 @@
 		sentAnnoucement = false
 	end
 	-------------------------------------------------------------------------------
-	local function round(num, idp)
-		local mult = 10^(idp or 0)
-		return math.floor(num * mult + 0.5) / mult
-	end
-	local getPerc = function(unit)
-		return round(((UnitHealth(unit) * 100) / UnitHealthMax(unit)), 1)
+	local function getPerc(unit)
+		return Utils.round(UnitHealth(unit) * 100 / UnitHealthMax(unit), 1)
 	end
 	-------------------------------------------------------------------------------
 	WSGUIupdateFChealth = function(unit)

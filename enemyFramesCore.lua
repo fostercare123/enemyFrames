@@ -469,7 +469,6 @@ local function initializeValues()
 		f:UnregisterEvent'UPDATE_BATTLEFIELD_SCORE'
 		-- nil value to disable ui elements
 		ENEMYFRAMESInitialize(nil)
-		f:SetScript('OnUpdate', nil)
 	end
 end
 

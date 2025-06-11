@@ -342,7 +342,7 @@
 		if nextRefresh < 0 then
 			showCast()
 			if ENEMYFRAMESPLAYERDATA['targetPortraitDebuff'] then showPortraitDebuff() else portraitDebuff.cd:Hide() end
-			displayTimers(SPELLCASTINGCOREgetBuffs(UnitName'target'))
+			if UnitExists('target') then displayTimers(SPELLCASTINGCOREgetBuffs(UnitName'target')) end
 			raidTargetOnUpdate()
 			nextRefresh = refreshInterval
 		end

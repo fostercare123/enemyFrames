@@ -513,7 +513,7 @@ local function SetupFrames(maxU)
 end
 
 
-local Utils = Utils
+local Utils  = Utils
 local Poller = Poller
 
 local function enemyFramesOnUpdate()
