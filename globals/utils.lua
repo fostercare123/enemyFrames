@@ -14,5 +14,5 @@ function M.getTimerLeft(tEnd)
     end
 end
 
-_G.Utils = M    -- make available globally
+_G.Utils = M
 return M

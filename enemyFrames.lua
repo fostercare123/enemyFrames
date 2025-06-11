@@ -514,6 +514,7 @@ end
 
 
 local Utils = Utils
+local Poller = Poller
 
 local function enemyFramesOnUpdate()
 	nextRefresh = nextRefresh - arg1
@@ -563,7 +564,7 @@ function ENEMYFRAMESInitialize(maxUnits, isBG)
 		if ENEMYFRAMESPLAYERDATA['enableFrames'] then
 			enemyFrame:Show()
 		end
-		enemyFrame:SetScript('OnUpdate', enemyFramesOnUpdate)
+		Poller.Add(enemyFramesOnUpdate)
 	else
 		enemyFrame:SetScript('OnUpdate', nil)
 	end

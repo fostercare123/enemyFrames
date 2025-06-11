@@ -1,4 +1,4 @@
-	-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 	local playerName = UnitName'player'
 	local enabled, refresh = false, true
 	local refreshInterval, nextRefresh = 1/60, 0
@@ -101,8 +101,8 @@
 	INCOMINGSPELLSinit = function(b)
 		enabled = b
 		if enabled then
-			incFrame:SetScript('OnUpdate', function()
-				nextRefresh = nextRefresh - arg1
+			Poller.Add(function(elapsed)
+				nextRefresh = nextRefresh - elapsed
 				if nextRefresh < 0 and ENEMYFRAMESPLAYERDATA['incomingSpells'] then
 					incomingSpellsOnUpdate()
 					nextRefresh = refreshInterval

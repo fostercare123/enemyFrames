@@ -460,7 +460,6 @@ local function initializeValues()
 		insideBG = bgs[GetZoneText()] and true or false
 		
 		if insideBG then f:RegisterEvent'UPDATE_BATTLEFIELD_SCORE'	end
-		f:SetScript('OnUpdate', enemyFramesCoreOnUpdate)
 		-- enable ui elements
 		ENEMYFRAMESInitialize(maxUnits, insideBG)
 		bindingsInit()
@@ -522,4 +521,8 @@ SlashCmdList["ENEMYFRAMECORE"] = function(msg)
 		end
 	end
 end
+
+local Poller = Poller
+
+Poller.Add(enemyFramesCoreOnUpdate)
 

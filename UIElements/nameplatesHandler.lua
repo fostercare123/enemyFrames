@@ -1,6 +1,5 @@
 -------------------------------------------------------------------------------
 	local refreshInterval, nextRefresh = 1/60, 0
-	local f = CreateFrame'Frame'
 	-------------------------------------------------------------------------------
 	local isPlate = function(frame)     
 		local overlayRegion = frame:GetRegions()
@@ -247,8 +246,11 @@
 		end
 	end
 	-------------------------------------------------------------------------------
-	f:SetScript('OnUpdate', function()
-		nextRefresh = nextRefresh - arg1
+	local Utils = Utils
+	local Poller = Poller
+
+	Poller.Add(function(elapsed)
+		nextRefresh = nextRefresh - elapsed
 		if nextRefresh < 0 then
 			namePlateHandlerOnUpdate()
 			nextRefresh = refreshInterval

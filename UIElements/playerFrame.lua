@@ -1,4 +1,5 @@
 local Utils = Utils  -- globals/utils.lua returns a table in global Utils
+local Poller = Poller
 
 -------------------------------------------------------------------------------
 	local refreshInterval, nextRefresh = 1/60, 0
@@ -87,8 +88,8 @@ local Utils = Utils  -- globals/utils.lua returns a table in global Utils
 			
 	end
 	-------------------------------------------------------------------------------
-	playerDebuffFrame:SetScript('OnUpdate', function()
-		nextRefresh = nextRefresh - arg1
+	Poller.Add(function(elapsed)
+		nextRefresh = nextRefresh - elapsed
 		if nextRefresh < 0 then
 			if ENEMYFRAMESPLAYERDATA['playerPortraitDebuff'] then
 				showPortraitDebuff()				

@@ -1,4 +1,4 @@
-	-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 	local raidTargetFrame = CreateFrame('Frame', nil, TargetFrame)
 	raidTargetFrame:SetFrameLevel(2)
 	raidTargetFrame:SetHeight(36)	raidTargetFrame:SetWidth(36)
@@ -107,17 +107,7 @@
     TargetFrame.IntegratedCastBar.timer:SetPoint('RIGHT', TargetFrame.IntegratedCastBar, -2, .5)
     TargetFrame.IntegratedCastBar.timer:SetText'3.5s'
 	-------------------------------------------------------------------------------
-	local function round(num, idp)
-		local mult = 10^(idp or 0)
-		return math.floor(num * mult + 0.5) / mult
-	end
-	local getTimerLeft = function(tEnd, l)
-		local t = tEnd - GetTime()
-		if not l then l = 3 end
-		if t > l then return round(t, 0) else return round(t, 1) end
-	end
-	-------------------------------------------------------------------------------
-	local showCast = function()
+	local function showCast()
 		if castbarmoveable then
 			if ENEMYFRAMESPLAYERDATA['targetFrameCastbar'] then
 				TargetFrame.EFcast:Show()
@@ -347,37 +337,14 @@
 		end
 	end
 	-------------------------------------------------------------------------------	
-	local dummyFrame = CreateFrame'Frame'
-	dummyFrame:SetScript('OnUpdate', function()
-		nextRefresh = nextRefresh - arg1
+	Poller.Add(function(elapsed)
+		nextRefresh = nextRefresh - elapsed
 		if nextRefresh < 0 then
-			if ENEMYFRAMESPLAYERDATA['targetFrameCastbar'] or ENEMYFRAMESPLAYERDATA['integratedTargetFrameCastbar'] then
-				showCast()				
-			else
-				TargetFrame.EFcast:Hide()
-				TargetFrame.IntegratedCastBar:Hide()	
-				--TargetFrameNameBackground:SetDrawLayer'BORDER'
-				TargetFrameNameBackground:SetAlpha(1)
-				TargetName:Show()				
-			end
-			if ENEMYFRAMESPLAYERDATA['targetPortraitDebuff'] then
-				showPortraitDebuff()				
-			else
-				portraitDebuff.cd:Hide()				
-				portraitDebuff.debuffText:SetTexture()
-				portraitDebuff.duration:SetText('')
-				portraitDebuff.bgText:Hide()
-			end
-			
-			-- debuff timers
-			if UnitExists('target') then
-				displayTimers(SPELLCASTINGCOREgetBuffs(UnitName'target'))
-			end
-			
-			-- raidtarget
+			showCast()
+			if ENEMYFRAMESPLAYERDATA['targetPortraitDebuff'] then showPortraitDebuff() else portraitDebuff.cd:Hide() end
+			displayTimers(SPELLCASTINGCOREgetBuffs(UnitName'target'))
 			raidTargetOnUpdate()
-			
-			nextRefresh = refreshInterval			
+			nextRefresh = refreshInterval
 		end
 	end)
 	
@@ -392,4 +359,3 @@
 	dummyFrame:RegisterEvent'PLAYER_ENTERING_WORLD'
 	dummyFrame:RegisterEvent'ZONE_CHANGED_NEW_AREA'
 	dummyFrame:SetScript('OnEvent', eventHandler)
-	
