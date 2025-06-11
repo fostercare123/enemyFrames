@@ -1,4 +1,3 @@
-
 local playerFaction
 local bgs = {['Warsong Gulch'] = 10, 
 			 ['Arathi Basin'] = 15, 

@@ -1,4 +1,4 @@
-	-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 	local refreshInterval, nextRefresh = 1/60, 0
 	local f = CreateFrame'Frame'
 	-------------------------------------------------------------------------------
@@ -41,15 +41,6 @@
 	local addClassColor = function(health, class)	
 		local colour = RAID_CLASS_COLORS[class]
 		health:SetStatusBarColor(colour.r, colour.g, colour.b)
-	end
-	-------------------------------------------------------------------------------
-	local function round(num, idp)
-		local mult = 10^(idp or 0)
-		return math.floor(num * mult + 0.5) / mult
-	end
-	local getTimerLeft = function(tEnd)
-		local t = tEnd - GetTime()
-		if t > 3 then return round(t, 0) else return round(t, 1) end
 	end
 	-------------------------------------------------------------------------------
 	local TEXTURE = [[Interface\AddOns\enemyFrames\globals\resources\barTexture.tga]]
@@ -119,7 +110,7 @@
 						sparkPosition = (GetTime() - castInfo.timeStart) / (castInfo.timeEnd - castInfo.timeStart)
 					end
 					plate.castBar.text:SetText(castInfo.spell)
-					plate.castBar.timer:SetText(getTimerLeft(castInfo.timeEnd)..'s')
+					plate.castBar.timer:SetText(Utils.getTimerLeft(castInfo.timeEnd))
 					plate.castBar.icon:SetTexture(castInfo.icon)
 					plate.castBar:SetAlpha(plate:GetAlpha())
 					-- border colors
@@ -198,7 +189,7 @@
 			for i, e in pairs(v) do
 				plate.buffs[i]:Show()
 				plate.buffs[i].icon:SetTexture(e.icon)
-				plate.buffs[i].duration:SetText(getTimerLeft(e.timeEnd))
+				plate.buffs[i].duration:SetText(Utils.getTimerLeft(e.timeEnd))
 
 				local r, g, b = e.border[1], e.border[2], e.border[3]
 				plate.buffs[i].border:SetColor( r, g, b)

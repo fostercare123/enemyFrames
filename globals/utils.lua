@@ -13,4 +13,6 @@ function M.getTimerLeft(tEnd)
         return M.round(t, 1)
     end
 end
+
+_G.Utils = M    -- make available globally
 return M
