@@ -621,13 +621,22 @@ local function debugCooldownTest()
 		units[i].cc.cd:Show()
 	end
 end
+local C           = EF_CONST
+local refreshRate = C.refreshRate
+
 SLASH_ENEMYFRAMES1 = '/efd'
 SlashCmdList["ENEMYFRAMES"] = function(msg)
-	if msg then
-		if 		msg == 'data' 	then 	debugDisplayPlayerData()	 
-		elseif 	msg =='cd' 		then	debugCooldownTest()
-		end		
-	end
+  if msg == 'help' then
+    print("enemyFrames commands:")
+    print("/efd help          - this message")
+    print("/efd data          - show player data")
+    print("/efd cd            - cooldown test")
+    print("/efs               - settings menu")
+  elseif msg == 'data' then
+    debugDisplayPlayerData()
+  elseif msg == 'cd' then
+    debugCooldownTest()
+  end
 end
 
 

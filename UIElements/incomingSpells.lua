@@ -6,7 +6,8 @@ local Poller = Poller
 
 	local playerName = UnitName'player'
 	local enabled, refresh = false, true
-	local refreshInterval, nextRefresh = 1/60, 0
+	local refreshRate = C.refreshRate
+	local timer = 0
 	
 	local unitsLimit, units = 3, {}
 	local playerCastList = {}
@@ -103,14 +104,13 @@ local Poller = Poller
 	INCOMINGSPELLSsettings = function(b)
 		defaultValues(b)
 	end
-	INCOMINGSPELLSinit = function(b)
-		enabled = b
+	INCOMINGSPELLSinit = function(enabled)
 		if enabled then
 			Poller.Add(function(elapsed)
-				nextRefresh = nextRefresh - elapsed
-				if nextRefresh < 0 and ENEMYFRAMESPLAYERDATA['incomingSpells'] then
+				timer = timer - elapsed
+				if timer <= 0 and ENEMYFRAMESPLAYERDATA.incomingSpells then
 					incomingSpellsOnUpdate()
-					nextRefresh = refreshInterval
+					timer = refreshRate
 				end
 			end)
 		end

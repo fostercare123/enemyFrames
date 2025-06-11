@@ -19,7 +19,7 @@ local GetTime          = GetTime
 	raidTargetFrame.icon:SetTexture([[Interface\TargetingFrame\UI-RaidTargetingIcons]])
 	raidTargetFrame.icon:SetAllPoints()
 	-------------------------------------------------------------------------------
-	local refreshInterval, nextRefresh = 1/60, 0
+	local timer = 0
 	local flagCarriers = {}
 	local showText = true
 	-------------------------------------------------------------------------------
@@ -349,8 +349,8 @@ local GetTime          = GetTime
 	end
 	-------------------------------------------------------------------------------	
 	Poller.Add(function(elapsed)
-		nextRefresh = nextRefresh - elapsed
-		if nextRefresh <= 0 then
+		timer = timer - elapsed
+		if timer <= 0 then
 			showCast()
 			if ENEMYFRAMESPLAYERDATA.targetPortraitDebuff then
 				showPortraitDebuff()
@@ -361,7 +361,7 @@ local GetTime          = GetTime
 				displayTimers(SPELLCOREgetBuffs(UnitName'target'))
 			end
 			raidTargetOnUpdate()
-			nextRefresh = refreshInterval
+			timer = refreshRate
 		end
 	end)
 	

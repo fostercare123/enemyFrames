@@ -1,10 +1,11 @@
 -- Module: CustomBorder
--- Creates 9‐slice borders. Tweak texture path or padding defaults here.
+-- Config: tweak padding or texture in EF_CONST below.
 
+local C = EF_CONST
 local borderTexture = [[Interface\AddOns\enemyFrames\globals\resources\border.tga]]
 local BACKDROP 	= {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
 		
-local defaultTcut = 1/4.2
+local defaultTcut = C.borderTCut
 	
 local getTextCoords = function(tcutsize)
 	local sides = 
@@ -26,14 +27,15 @@ CreateBorder = function(name, parent, size, tcut)
 	this:SetAllPoints()	
 	this:SetFrameLevel(parent:GetFrameLevel()+1)		
 		
-	local tcutsize = tcut and tcut or defaultTcut
+	-- choose trim amount
+	local tcutsize = tcut or defaultTcut
 	
 	local corners, sides = getTextCoords(tcutsize)
 	-- corners
 	this.c = {}
 	for i = 1, 4 do
 		this.c[i] = this:CreateTexture(nil, 'OVERLAY')
-		this.c[i]:SetHeight(size)		this.c[i]:SetWidth(size)
+		this.c[i]:SetHeight(size); this.c[i]:SetWidth(size)
 		
 		this.c[i]:SetTexture(borderTexture)
 		this.c[i]:SetTexCoord(corners[i][1][1], corners[i][1][2], corners[i][1][3], corners[i][1][4])
@@ -71,18 +73,7 @@ CreateBorder = function(name, parent, size, tcut)
 		end
 	end				
 	this:SetColor(.1, .1, .1)	
-	
-	function this:SetPadding(x, y)
-		local spacingx, spacingy = x, y and y or x
-		local x0, x1, y0, y1 = -spacingx, spacingx, -spacingy, spacingy
-		for i = 1, 4 do
-			local xo, yo = (i == 1 or i == 3) and -1/8 or 1/8, (i == 1 or i == 2) and 1/8 or -1/8
-			local x, y = (i == 1 or i == 3) and x0 or x1, (i == 1 or i == 2) and y1 or y0
-			this.c[i]:SetPoint(corners[i][2],
-			this,
-			xo*(size)+x, yo*(size)+y)
-		end
-	end
+	this:SetPadding(C.borderDefaultPadding)
 			
 	return this
 end

@@ -1,35 +1,38 @@
 ## Interface: 11200
-## Title: BG Enemy Frames
-## Notes: by kuurtzen
+## Title: enemyFrames (Clean by Kirsten)
+## Notes: Cleaned up and modularized by Kirsten
+## Version: 1.36
 ## SavedVariablesPerCharacter: ENEMYFRAMESPLAYERDATA
 
-globals\actionHandler.lua
-globals\spellCastingCore.lua
-globals\resources\globals.lua
-globals\resources\spells.lua
-globals\resources\buffs.lua
-globals\wsgHandler.lua
-globals\commHandler.lua
-globals\smoothBar.lua
-globals\settings\settings.lua
-globals\settings\general.lua
-globals\settings\features.lua
-globals\settings\nameplates.lua
-globals\settings\optionals.lua
-globals\class\rogue.lua
-globals\class\paladin.lua
-
-UIElements\BindingsHandler.lua
-UIElements\nameplatesHandler.lua
-UIElements\customBorder.lua
-UIElements\customCooldown.lua
-UIElements\targetframe.lua
-UIElements\playerFrame.lua
-UIElements\UIElementsTemplate.lua
-UIElements\incomingSpells.lua
-UIElements\pvpmap.lua
-UIElements\scoreBoard.lua
-UIElements\wsgUI.lua
-
-enemyFrames.lua
+## Core
 enemyFramesCore.lua
+enemyFrames.lua
+
+## Globals
+globals/constants.lua
+globals/utils.lua
+globals/uiFactory.lua
+globals/eventDispatcher.lua
+globals/wsgHandler.lua
+globals/commHandler.lua
+globals/actionHandler.lua
+
+## Spells
+globals/spells/casts.lua
+globals/spells/buffs.lua
+globals/spells/parser.lua
+
+## Settings
+globals/settings/settings.lua
+globals/settings/general.lua
+globals/settings/features.lua
+globals/settings/optionals.lua
+globals/settings/nameplates.lua
+
+## UI Elements
+UIElements/playerFrame.lua
+UIElements/targetframe.lua
+UIElements/nameplatesHandler.lua
+UIElements/incomingSpells.lua
+UIElements/customBorder.lua
+UIElements/wsgUI.lua

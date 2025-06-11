@@ -1,6 +1,10 @@
 -- Module: WSG UI
--- Displays and manages flag‐carrier icons and health in WSG.
--- Feel free to tweak tooltip text or layout here.
+-- Config values via EF_CONST
+
+local C = EF_CONST
+local healthWarnings = C.healthThresholds
+local announceDelay  = C.announcementInterval
+local refreshRate    = C.refreshRate
 
 local WorldFrame      = WorldStateAlwaysUpFrame
 local GameTooltip     = GameTooltip
@@ -12,7 +16,6 @@ local RGB             = RGB_FACTION_COLORS
 local tlength         = tlength
 
 local flagCarriers, fcHealth = {}, {}
-local sentAnnouncement, healthWarnings = false, {10, 20, 40}
 local nextAnnouncement = 0
 
 -- create texts & buttons
@@ -115,8 +118,8 @@ WSGUIupdateFChealth = function(unit)
         local now = GetTime()
         local pct = fcHealth[f] or 100
         for _,th in ipairs(healthWarnings) do
-            if pct<th and now>nextAnnouncement then
-                nextAnnouncement = now + 4
+            if pct < th and now > nextAnnouncement then
+                nextAnnouncement = now + announceDelay
                 SendChatMessage('EFC <'..th..'%!'..(flagCarriers[x] and ' Get ready!' or ''),'BATTLEGROUND')
                 break
             end
