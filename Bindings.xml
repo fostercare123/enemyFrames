@@ -1,12 +1,17 @@
+<!-- Module: Key Bindings Definitions
+     Defines Blizzard key‐binding UI entries for assigning and targeting raid marks.
+     Edit labels or functions here for new binds. -->
 <Bindings>
-	<Binding name="SETKT"  	header="EFKHEADER"	>setIconBind('skull')</Binding>
-	<Binding name="GETKT"  						>getKTbind()</Binding>
-	
-	<Binding name="SETMOON"  					>setIconBind('moon')</Binding>
-	<Binding name="SETSQUARE"  					>setIconBind('square')</Binding>
-	<Binding name="SETTRIANGLE"  				>setIconBind('triangle')</Binding>
-	<Binding name="SETSTAR"  					>setIconBind('star')</Binding>
-	<Binding name="SETDIAMOND"  				>setIconBind('diamond')</Binding>
-	<Binding name="SETCIRCLE"  					>setIconBind('circle')</Binding>
-	<Binding name="SETCROSS"  					>setIconBind('cross')</Binding>	
+  <!-- Skull mark -->
+  <Binding name="SETKT"   header="EFKHEADER">setIconBind('skull')</Binding>
+  <Binding name="GETKT">getKTbind()</Binding>
+
+  <!-- Other raid-target icons -->
+  <Binding name="SETSTAR">setIconBind('star')</Binding>
+  <Binding name="SETMOON">setIconBind('moon')</Binding>
+  <Binding name="SETSQUARE">setIconBind('square')</Binding>
+  <Binding name="SETDIAMOND">setIconBind('diamond')</Binding>
+  <Binding name="SETCROSS">setIconBind('cross')</Binding>
+  <Binding name="SETCIRCLE">setIconBind('circle')</Binding>
+  <Binding name="SETTRIANGLE">setIconBind('triangle')</Binding>
 </Bindings>
