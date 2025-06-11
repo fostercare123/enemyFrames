@@ -1,4 +1,4 @@
-	-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 	local settings = _G['enemyFramesSettings']
 	
 	local container = CreateFrame('Frame', 'enemyFramesSettingsgeneralContainer', settings)
@@ -119,3 +119,28 @@
 		--container.newversion:SetTextColor(color['r'], color['g'], color['b'], .9)
 	end
 	-------------------------------------------------------------------------------
+	local UIFactory = UIFactory
+	local settings = _G.enemyFramesSettings
+	local container = _G.enemyFramesSettingsgeneralContainer
+	-- remove the existing CreateFrame+Manual positioning...
+
+	-- instead, do:
+	local color = RGB_FACTION_COLORS['Alliance'] -- will be updated on setupSettings
+	local cbEnable = UIFactory.CheckBox(container, 45, -30,
+	    'enableFrames', 'Show enemyFrames', color,
+	    function(v) ENEMYFRAMESPLAYERDATA.enableFrames = v; ENEMYFRAMESsettings() end)
+
+	local sliderScale = UIFactory.Slider(container, 45, -70,
+	    '0.8', '1.5', .8, 1.5, .05, color,
+	    function(v) ENEMYFRAMESPLAYERDATA.scale = v; _G.enemyFrameDisplay:SetScale(v) end)
+
+	-- layout slider (example):
+	local sliderLayout = UIFactory.Slider(container, 45, -110,
+	    'horizontal','vertical', 0, 4, 1, color,
+	    function(v)
+	        local a = ({'horizontal','hblock','block','vblock','vertical'})[v+1]
+	        local g = ({1,5,5,2,15})[v+1]
+	        ENEMYFRAMESPLAYERDATA.layout = a
+	        ENEMYFRAMESPLAYERDATA.groupsize = g
+	        ENEMYFRAMESsettings()
+	    end)

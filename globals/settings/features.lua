@@ -1,12 +1,7 @@
-	-------------------------------------------------------------------------------
-	local settings = _G['enemyFramesSettings']
-	
-	local container = CreateFrame('Frame', 'enemyFramesSettingsfeaturesContainer', settings)
-	container:SetWidth(settings:GetWidth()) container:SetHeight(settings:GetHeight())
-	container:SetPoint('CENTER', settings)
-	container:EnableMouse(true)
-	container:EnableMouseWheel(true)
-	container:Hide()
+-------------------------------------------------------------------------------
+	local UIFactory = UIFactory
+	local settings = _G.enemyFramesSettings
+	local container = _G.enemyFramesSettingsfeaturesContainer
 	-------------------------------------------------------------------------------
 	local checkBoxFeaturesN, checkBoxFeatures  = 6, { 	--[1] = {['id'] = 'enableOutdoors', 		['label'] = 'Enable outside of BattleGrounds'},
 														[1] = {['id'] = 'mouseOver', 			['label'] = 'Mouseover cast on frames'},	
@@ -30,16 +25,10 @@
 
 	container.featuresList = {}
 	for i = 1, checkBoxFeaturesN, 1 do
-		container.featuresList[i] = CreateFrame('CheckButton', 'enemyFramesFeaturesCheckButton'..i, container, 'UICheckButtonTemplate')
-		container.featuresList[i]:SetHeight(20) 	container.featuresList[i]:SetWidth(20)
-		container.featuresList[i]:SetPoint('LEFT', i == 1 and container.features or container.featuresList[i-1], 'LEFT', 0, i == 1 and -40 or -30)
-		_G[container.featuresList[i]:GetName()..'Text']:SetText(checkBoxFeatures[i]['label'])
-		_G[container.featuresList[i]:GetName()..'Text']:SetPoint('LEFT', container.featuresList[i], 'RIGHT', 4, 0)
-		container.featuresList[i].id = checkBoxFeatures[i]['id']
-		container.featuresList[i]:SetScript('OnClick', function()
-			ENEMYFRAMESPLAYERDATA[this.id]	= this:GetChecked()
-			ENEMYFRAMESsettings()
-		end)
+		local color = RGB_FACTION_COLORS['Alliance']
+		container.featuresList[i] = UIFactory.CheckBox(container, 45, -30 - (i-1) * 30,
+			checkBoxFeatures[i]['id'], checkBoxFeatures[i]['label'], color,
+			function(v) ENEMYFRAMESPLAYERDATA[checkBoxFeatures[i]['id']] = v; ENEMYFRAMESsettings() end)
 	end
 	-------------------------------------------------------------------------------
 	container.bgLabel = container:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
@@ -48,28 +37,23 @@
 	
 	container.bgList = {}
 	for i = 1, checkBoxFeaturesBGN, 1 do
-		container.bgList[i] = CreateFrame('CheckButton', 'enemyFramesFeaturesBGCheckButton'..i, container, 'UICheckButtonTemplate')
-		container.bgList[i]:SetHeight(20) 	container.bgList[i]:SetWidth(20)
-		container.bgList[i]:SetPoint('LEFT', i == 1 and container.bgLabel or container.bgList[i-1], 'LEFT', 0, i == 1 and -40 or -30)
-		_G[container.bgList[i]:GetName()..'Text']:SetText(checkBoxFeaturesBG[i]['label'])
-		_G[container.bgList[i]:GetName()..'Text']:SetPoint('LEFT', container.bgList[i], 'RIGHT', 4, 0)
-		container.bgList[i].id = checkBoxFeaturesBG[i]['id']
-		container.bgList[i]:SetScript('OnClick', function()
-			ENEMYFRAMESPLAYERDATA[this.id]	= this:GetChecked()
-			ENEMYFRAMESsettings()
-			INCOMINGSPELLSsettings(ENEMYFRAMESPLAYERDATA['incomingSpells'])
-		end)
+		local color = RGB_FACTION_COLORS['Alliance']
+		container.bgList[i] = UIFactory.CheckBox(container, 45, -30 - (i-1) * 30,
+			checkBoxFeaturesBG[i]['id'], checkBoxFeaturesBG[i]['label'], color,
+			function(v) 
+				ENEMYFRAMESPLAYERDATA[checkBoxFeaturesBG[i]['id']] = v
+				ENEMYFRAMESsettings() 
+				INCOMINGSPELLSsettings(ENEMYFRAMESPLAYERDATA['incomingSpells']) 
+			end)
 	end
 	
 	-------------------------------------------------------------------------------
 	FEATURESSETTINGSInit = function(color)
 		for i = 1, checkBoxFeaturesN do
-			_G[container.featuresList[i]:GetName()..'Text']:SetTextColor(color['r'], color['g'], color['b'], .9)
 			container.featuresList[i]:SetChecked(ENEMYFRAMESPLAYERDATA[checkBoxFeatures[i]['id']])
 		end
 		
 		for i = 1, checkBoxFeaturesBGN do
-			_G[container.bgList[i]:GetName()..'Text']:SetTextColor(color['r'], color['g'], color['b'], .9)
 			container.bgList[i]:SetChecked(ENEMYFRAMESPLAYERDATA[checkBoxFeaturesBG[i]['id']])
 		end
 		
